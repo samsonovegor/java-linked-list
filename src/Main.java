@@ -1,5 +1,6 @@
 /**
- * Демонстрация работы собственной реализации односвязного списка. */
+ * Демонстрация работы собственной реализации односвязного списка.
+ */
 public class Main {
     public static void main(String[] args) {
         // Создаём пустой список строк
@@ -12,15 +13,24 @@ public class Main {
 
         // Добавляем элемент в начало
         list.addFirst("Санкт-Петербург");
-
         System.out.println("Список: " + list);
-        System.out.println("Размер: " + list.size());
-        System.out.println("Элемент с индексом 2: " + list.get(2));
-        System.out.println("Содержит \"Казань\": " + list.contains("Казань"));
 
-        // Удаляем первый элемент
+        // Вставляем элемент на позицию 2
+        list.add(2, "Новосибирск");
+        System.out.println("После add(2, Новосибирск): " + list);
+
+        // Поиск по значению
+        System.out.println("indexOf(Казань): " + list.indexOf("Казань"));
+        System.out.println("contains(Владивосток): " + list.contains("Владивосток"));
+
+        // Доступ по индексу и удаление
+        System.out.println("get(1): " + list.get(1));
         list.remove(0);
-        System.out.println("После удаления первого: " + list);
+        System.out.println("После remove(0): " + list);
         System.out.println("Размер: " + list.size());
+
+        // Очистка
+        list.clear();
+        System.out.println("После clear – isEmpty: " + list.isEmpty());
     }
 }

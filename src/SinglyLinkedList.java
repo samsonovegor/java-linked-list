@@ -1,5 +1,5 @@
 /**
- * Односвязный список — собственная реализация структуры данных.
+ * Односвязный список – собственная реализация структуры данных.
  * Хранит элементы в виде цепочки узлов, где каждый узел ссылается на следующий.
  *
  * @param <T> тип хранимых элементов
@@ -17,13 +17,21 @@ public class SinglyLinkedList<T> {
         }
     }
 
-    private Node<T> head; // ссылка на первый узел списка (голова)
+    private Node<T> head; // ссылка на первый узел списка
     private int size;     // текущее количество элементов
 
     /** Создаёт пустой список. */
     public SinglyLinkedList() {
         this.head = null;
         this.size = 0;
+    }
+
+    /** Добавляет элемент в начало списка. */
+    public void addFirst(T value) {
+        Node<T> newNode = new Node<>(value);
+        newNode.next = head;
+        head = newNode;
+        size++;
     }
 
     /** Добавляет элемент в конец списка. */
@@ -41,11 +49,22 @@ public class SinglyLinkedList<T> {
         size++;
     }
 
-    /** Добавляет элемент в начало списка. */
-    public void addFirst(T value) {
+    /** Вставляет элемент на заданную позицию (нумерация с нуля). */
+    public void add(int index, T value) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Недопустимый индекс: " + index);
+        }
+        if (index == 0) {
+            addFirst(value);
+            return;
+        }
+        Node<T> prev = head;
+        for (int i = 0; i < index - 1; i++) {
+            prev = prev.next;
+        }
         Node<T> newNode = new Node<>(value);
-        newNode.next = head;
-        head = newNode;
+        newNode.next = prev.next;
+        prev.next = newNode;
         size++;
     }
 
@@ -88,6 +107,26 @@ public class SinglyLinkedList<T> {
             current = current.next;
         }
         return false;
+    }
+
+    /** Возвращает индекс первого вхождения элемента, или -1 если не найден. */
+    public int indexOf(T value) {
+        Node<T> current = head;
+        int index = 0;
+        while (current != null) {
+            if (current.data.equals(value)) {
+                return index;
+            }
+            current = current.next;
+            index++;
+        }
+        return -1;
+    }
+
+    /** Очищает список, удаляя все элементы. */
+    public void clear() {
+        head = null;
+        size = 0;
     }
 
     /** Возвращает количество элементов в списке. */
